@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>anonymous3858</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta property="og:title" content="2023anonymous3858">
+    <meta property="og:url" content="https://2023anonymous3858.github.io/">
+	<meta property="og:image" content="./image/iccv_main.png">
+	<meta name="description" content="2023anonymous3858">
+	<meta name="keywords" content="2023anonymous3858">
+	<meta name="author" content="....">
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" href="./fontawesome.all.min.css">
+    <!-- <link rel="stylesheet" href="./bulma.min.css"> -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/d4c0a5ef49.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+<body>
+<div class="title">
+    <h1>Audio-Guided Implicit Neural Representation for  Local Image Stylization</h1>
+    
+</div>
+<div class="byline">
+    <div class="authors">
+        <div class="author"><b>
+            Seung Hyun Lee<sup>1</sup> &emsp; 
+            Gyeongrok Oh<sup>1</sup> &emsp; 
+            Wonmin Byeon<sup>2</sup> &emsp; 
+            Sang Ho Yoon<sup>3</sup> &emsp; 
+            Jinkyu Kim<sup>1</sup> &emsp; 
+            Sangpil Kim<sup>1</sup></b>
+        </div>
+    </div>
+    <div class="affiliations">
+        <p class="affiliation" style="color: darkslategray;">Korea University<sup>1</sup> &emsp; NVIDIA Research<sup>2</sup>&emsp; KAIST<sup>3</sup></p>
+    </div>
+    <div class="links">
+        <span class="link-block">
+            <a href=""
+               class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>Paper</span>
+            </a>
+          </span>
+        <span class="link-block">
+            <a href=""
+               class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+              </a>
+          </span>
+    </div>
+</div>
+<!-- <div class="byline">
+    <center>
+    <span class="link-block">
+        <a href="https://arxiv.org/pdf/2211.08761.pdf"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fas fa-file-pdf"></i>
+          </span>
+          <span>Paper</span>
+        </a>
+      </span>
+      <span class="link-block">
+        <a href="https://arxiv.org/abs/2211.08761"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="ai ai-arxiv"></i>
+          </span>
+          <span>arXiv</span>
+        </a>
+      </span>
+    <span class="link-block">
+        <a href="https://github.com/stnamjef/SPINN"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fab fa-github"></i>
+          </span>
+          <span>Code</span>
+          </a>
+      </span>
+    </center>
+
+    
+</div> -->
+
+
+<div class="container">
+    <div class="sections-container">
+        <!-- <div class="center-img">
+            <img class="content" src="./image/iccv_figure1.png">
+        </div> -->
+    
+</div>
+
+    <div class="sections-container">
+        <div class="section">
+            <h2 class="section-title">Abstract</h2>
+            <p>
+                We present a novel framework, audio-guided image localized stylization. 
+                Sound often provides information about the specific context of the scene and is closely related to a certain part of the scene or object. However, existing image stylization works have focused on stylizing the entire image using an image or text input. Stylizing a particular part of the image based on audio input is natural but challenging.
+                In this work, we propose a framework that a user provides an audio input to localize the sound source in the input image and another for locally stylizing the target object or scene. Our framework first produces a delicate localization map with an audio-visual localization network by leveraging CLIP embedding space. We then utilize implicit neural representation~(INR) along with the predicted localization map to stylize the target object or scene based on sound information. The proposed INR can manipulate the localized pixel values to be semantically consistent with the provided audio input.
+                Through a series of experiments, we show that the proposed framework outperforms the other audio-guided stylization methods. Moreover, we observe that our method constructs concise localization maps and naturally manipulates the target object or scene in accordance with the given audio input. 
+            </p>
+        </div>
+        <div class="section">
+            <h2 class="section-title">Method</h2>
+
+            <h2 class="section-subtitle">Overview</h2>
+            <div class="center-img">
+                <img class="content" src="./image/figure2.png"/>
+            </div>
+            <p style="margin-top: 30px;">
+                An overview of our proposed method, audio-guided image localized stylization. 
+                Our model consists of two main parts: (i) Audio-Visual Localizer, which outputs a pixel-level localization mask conditioned on an audio input (e.g., given a sound of engine noise input, our model localizes a train from the source image, producing a probability mask) and (ii) Audio-Guided INR Stylizer, which outputs stylized images by taking pixel locations as input and producing RGB pixel values as output. 
+                Conditioned on a new user-provided sound input (e.g., splashing plastic bag), 
+                o3ur model is optimized with multi-scale PatchCLIP loss to generate an audio-guided “locally” stylized image. We also use Foreground Regularization Loss to make the stylized image and a source image perceptually look similar.
+
+        </br>
+
+        <h2 class="section-subtitle">Audio-Visual Localizer</h2>
+        <div class="center-img">
+                <img class="content" src="./image/figure3.png" width="500">
+            </div>
+            <p style="margin-top: 30px;">
+                An overview of our Audio-visual Localizer, which identifies an image region corresponding to the sound input (e.g., localizing a train based on a sound of engine noise), producing a probability mask as an output. 
+                Due to the lack of data to provide such supervision, we leverage the existing text-guided zero-shot segmentation model, using its output as a pseudo label.
+            </p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Qualitative Results</h2>
+
+            <div class="center-img">
+                <img class="content" src="./image/figure4.png" width="500">
+            </div>
+            <p style="margin-top: 30px;">
+                <center>
+                    Comparison of stylizing high-resolution image (1536 × 1024) using CLIPstyler and ours. Unlike CLIPstyler, our method can generate a realistic style even for a high-resolution image.
+                </center>
+            </p>
+
+            <div class="center-img">
+                <img class="content" src="./image/figure5.png" width="500">
+            </div>
+            <p style="margin-top: 30px;">
+                <center>
+                    Comparison between Text2LIVE and Ours. Text2LIVE shows distorted structures on the outside of the target area. However, our approach stylizes the foreground of the source image per-pixel with maintaining the background.
+                </center>
+            </p>
+
+            <div class="center-img">
+                <img class="content" src="./image/figure6.png">
+            </div>
+            <p style="margin-top: 30px;">
+                <center>
+                    Interactive stylization results with different types of condition modality. The first to second rows use audio as a localization condition, and from the third to last rows localization is conditioned by text prompt. For stylization conditions, from second to fourth columns are conditioned by audio, and from fifth to the final column is conditioned by text prompts. The red box at each source image indicates a predicted sound source localization map, respectively.
+                </center>
+            </p>
+
+            <h3 style="margin-bottom: 30px">Showcase.</h3>
+
+            <div class="grid-image">
+                <img alt="" src="./image/showcase_pre1.png" >
+                <p class="arrow">→</p>
+                <img alt="" src="./image/showcase_post1.png">
+            </div>
+            
+            <div class="sound-control">
+                <p> 🔊Explosion</p>
+                
+                <audio controls>
+                    <source src="https://kr.object.ncloudstorage.com/cvpr2023/projectpage/explosion2.wav" type="audio/wav">
+                </audio>
+            </div> 
+        
+            <div class="grid-image">
+                <img alt="" src="./image/showcase_pre2.png" >
+                <p class="arrow">→</p>
+                <img alt="" src="./image/showcase_post2.png">
+            </div>
+            <div class="sound-control">
+                <p> 🔊Underwater Bubbling</p>
+                
+                <audio controls>
+                    <source src="https://kr.object.ncloudstorage.com/cvpr2023/projectpage/bubbling.wav" type="audio/wav">
+                </audio>
+            </div>
+        
+            <div class="grid-image">
+                <img alt="" src="./image/showcase_pre3.png" >
+                <p class="arrow">→</p>
+                <img alt="" src="./image/showcase_post3.png">
+            </div>
+
+            <div class="sound-control">
+                <p> 🔊Fire Crackling</p>
+                
+                <audio controls>
+                    <source src="https://kr.object.ncloudstorage.com/cvpr2023/projectpage/fire.wav" type="audio/wav">
+                </audio>
+            </div> 
+        
+            <div class="grid-image">
+                <img alt="" src="./image/showcase_pre4.png" >
+                <p class="arrow">→</p>
+                <img alt="" src="./image/showcase_post4.png">
+            </div>
+
+            <div class="sound-control">
+                <p> 🔊Splashing Fabric</p>
+                
+                <audio controls>
+                    <source src="https://kr.object.ncloudstorage.com/cvpr2023/projectpage/fabric.wav" type="audio/wav">
+                </audio>
+            </div> 
+        </div>
+        
+    
+</div>
+</body>
+<script>
+
+    
+
+</script>
+</html>
